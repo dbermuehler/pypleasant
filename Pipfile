@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+twine = "*"
+
+[packages]
+requests = "*"
+
+[requires]
+python_version = "3.6"
+
+[scripts]
+build = "python setup.py sdist bdist_wheel"
+cleanup = "rm -r dist/ build/ src/pypleasant.egg-info/"
+release-test = "twine upload --repository pypleasant-test-token"
+release = "twine upload --repository pypleasant-token"
