@@ -25,20 +25,20 @@ def parse_cmd() -> Tuple[str, str, str, List[str], pathlib.Path, str, str, str, 
                                  help="download the given attachment(s); if no attachment is given, all attachments are downloaded")
 
     parser.add_argument("--download-dir", type=str,
-                        help="attachments are downloaded to this directory (DEFAULT: '.', env var: PLEASANT_DOWNLOAD_DIR)")
+                        help="attachments are downloaded to this directory (DEFAULT: '.', env var: PYPLEASANT_DOWNLOAD_DIR)")
 
-    parser.add_argument("--api-url", type=str, help="URL of the pleasant server API (env var: PLEASANT_API_URL)")
-    parser.add_argument("--api-user", type=str, help="user for the pleasant server API (env var: PLEASANT_API_USER)")
+    parser.add_argument("--api-url", type=str, help="URL of the pleasant server API (env var: PYPLEASANT_API_URL)")
+    parser.add_argument("--api-user", type=str, help="user for the pleasant server API (env var: PYPLEASANT_API_USER)")
     parser.add_argument("--api-password", type=str,
-                        help="password for the pleasant server API (env var: PLEASANT_API_PASSWORD)")
+                        help="password for the pleasant server API (env var: PYPLEASANT_API_PASSWORD)")
     parser.add_argument("--disable-cert-check", action="store_true",
-                        help="disable HTTPS cert check (env var: PLEASANT_DISABLE_CERT_CHECK)",
+                        help="disable HTTPS cert check (env var: PYPLEASANT_DISABLE_CERT_CHECK)",
                         dest="disable_cert_check")
     parser.add_argument("--verbose", action="store_true", help="activate verbose output")
-    parser.add_argument("--debug", action="store_true", help="activate debug output (env var: PLEASANT_DEBUG)")
+    parser.add_argument("--debug", action="store_true", help="activate debug output (env var: PYPLEASANT_DEBUG)")
 
     parser.add_argument("path", type=str,
-                        help="the path on the pleasant server to the credential entry, e.g. /Development/git (env var: PLEASANT_PATH_TO_ENTRY)")
+                        help="the path on the pleasant server to the credential entry, e.g. /Development/git (env var: PYPLEASANT_PATH_TO_ENTRY)")
     args = parser.parse_args()
 
     if args.username:
@@ -54,21 +54,21 @@ def parse_cmd() -> Tuple[str, str, str, List[str], pathlib.Path, str, str, str, 
 
     custom_field_key = args.custom_field
     attachment_file_names = args.attachments
-    download_dir = args.download_dir or os.getenv("PLEASANT_DOWNLOAD_DIR") or '.'
+    download_dir = args.download_dir or os.getenv("PYPLEASANT_DOWNLOAD_DIR") or '.'
 
-    api_url = args.api_url or os.getenv("PLEASANT_API_URL") or input("Pleasant Server URL: ")
-    api_user = args.api_user or os.getenv("PLEASANT_API_USER") or input("Pleasant User: ")
-    api_password = args.api_password or os.getenv("PLEASANT_API_PASSWORD") or getpass()
-    disable_cert_check = args.disable_cert_check or os.getenv("PLEASANT_DISABLE_CERT_CHECK", "").lower() == "true"
+    api_url = args.api_url or os.getenv("PYPLEASANT_API_URL") or input("Pleasant Server URL: ")
+    api_user = args.api_user or os.getenv("PYPLEASANT_API_USER") or input("Pleasant User: ")
+    api_password = args.api_password or os.getenv("PYPLEASANT_API_PASSWORD") or getpass()
+    disable_cert_check = args.disable_cert_check or os.getenv("PYPLEASANT_DISABLE_CERT_CHECK", "").lower() == "true"
     verify_https = not disable_cert_check
 
-    activate_debug = args.debug or os.getenv("PLEASANT_DEBUG")
+    activate_debug = args.debug or os.getenv("PYPLEASANT_DEBUG")
     if activate_debug:
         logging.root.setLevel(logging.DEBUG)
     elif args.verbose:
         logging.root.setLevel(logging.INFO)
 
-    path = args.path or os.getenv("PLEASANT_PATH_TO_ENTRY")
+    path = args.path or os.getenv("PYPLEASANT_PATH_TO_ENTRY")
 
     return path, entry_attribute, custom_field_key, attachment_file_names, pathlib.Path(
         download_dir), api_url, api_user, api_password, verify_https
@@ -106,7 +106,7 @@ def lookup(url: str, user: str, password: str, verify_https: bool, path: str) ->
 
 def main() -> None:
     logging.basicConfig(stream=sys.stderr,
-                        level=logging.DEBUG if os.getenv("PLEASANT_DEBUG") else None,
+                        level=logging.DEBUG if os.getenv("PYPLEASANT_DEBUG") else None,
                         format="%(levelname)s: %(message)s")
 
     try:

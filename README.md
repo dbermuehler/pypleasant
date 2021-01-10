@@ -51,12 +51,12 @@ python -m pypleasant --help
 This information can be configured (partially or completely) using command-line parameters
 or environment variables:
 
-* `--api-url` or `PLEASANT_API_URL`
-* `--api-user` or `PLEASANT_API_USER`
-* `--api-password` (**NOT RECOMMENDED**) or `PLEASANT_API_PASSWORD`
+* `--api-url` or `PYPLEASANT_API_URL`
+* `--api-user` or `PYPLEASANT_API_USER`
+* `--api-password` (**NOT RECOMMENDED**) or `PYPLEASANT_API_PASSWORD`
 
 In case self-signed certificates are used, consider disabling the HTTPS certificate check via
-`--disable-cert-check` or by setting `PLEASANT_DISABLE_CERT_CHECK=true`.
+`--disable-cert-check` or by setting `PYPLEASANT_DISABLE_CERT_CHECK=true`.
 
 
 ## Usage
@@ -96,7 +96,7 @@ For a complete overview of all parameters, run `pleasant-cli` with the `--help` 
 positional arguments:
   path                  the path on the pleasant server to the credential
                         entry, e.g. /Development/git (env var:
-                        PLEASANT_PATH_TO_ENTRY)
+                        PYPLEASANT_PATH_TO_ENTRY)
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -110,16 +110,16 @@ optional arguments:
                         given, all attachments are downloaded
   --download-dir DOWNLOAD_DIR
                         attachments are downloaded to this directory (DEFAULT:
-                        '.', env var: PLEASANT_DOWNLOAD_DIR)
+                        '.', env var: PYPLEASANT_DOWNLOAD_DIR)
   --api-url API_URL     URL of the pleasant server api (env var:
-                        PLEASANT_API_URL)
+                        PYPLEASANT_API_URL)
   --api-user API_USER   user for the pleasant server API (env var:
-                        PLEASANT_API_USER)
+                        PYPLEASANT_API_USER)
   --api-password API_PASSWORD
                         password for the pleasant server API (env var:
-                        PLEASANT_API_PASSWORD)
+                        PYPLEASANT_API_PASSWORD)
   --disable-cert-check  disable HTTPS cert check (env var:
-                        PLEASANT_DISABLE_CERT_CHECK)
+                        PYPLEASANT_DISABLE_CERT_CHECK)
   --verbose             activate verbose output
-  --debug               activate debug output (env var: PLEASANT_DEBUG)
+  --debug               activate debug output (env var: PYPLEASANT_DEBUG)
 ```
