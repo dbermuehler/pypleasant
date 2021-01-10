@@ -1,61 +1,67 @@
 # pypleasant
 
-pypleasant is a Python script and library to access
+*pypleasant* is a Python script and library which interfaces with
 the [API](https://pleasantsolutions.com/info/pleasant-password-server/m-programmatic-access/restful-api) of
-the [Pleasant Password Server](https://www.passwordserver.de).
+[Pleasant Password Server](https://www.passwordserver.de/).
 
 ```bash
-pleasant-cli /path/to/entry --password # print password of credential entry
-pleasant-cli /path/to/entry --attachments secret_file.txt # download attachments
-pleasant-cli /path/to/entry --custom-field test # print values of custom fields
+pleasant-cli /path/to/entry --password  # print an entry's password
+pleasant-cli /path/to/entry --attachments secret_file.txt  # download an attachment
+pleasant-cli /path/to/entry --custom-field test  # print value of a custom field
 ```
+
 
 ## Requirements
 
-pypleasant requires Python >= 3.6 and only works with the Pleasant Password
-Server [API v5](https://pleasantsolutions.com/info/pleasant-password-server/m-programmatic-access/restful-api-v5).
+pypleasant requires Python >= 3.6 and is only compatible with Pleasant Password Server
+[API v5](https://pleasantsolutions.com/info/pleasant-password-server/m-programmatic-access/restful-api-v5).
+
 
 ## Installation
 
-The package is available on [PyPi](https://pypi.org/project/pypleasant/) and can easily be installed via pip:
+pypleasant is available on [PyPi](https://pypi.org/project/pypleasant/) and can be easily installed via pip:
 
 ```bash
 pip install pypleasant
 ```
 
-To use the command line client `pleasant-cli` you have to add your Python bin directory to your `PATH` variable.
+In order to use the command-line client `pleasant-cli`, ensure that your `PATH` variable includes
+Python's `bin` directory (adapt if necessary):
 
 ```bash
 export PATH+=$PATH:$HOME/.local/bin
 ```
 
-Then you can call it:
+Use the `--help` switch to check whether everything is setup correctly:
 
 ```bash
 pleasant-cli --help
 ```
 
-Alternatively you can directly call it as a Python module without modifying your `PATH` variable:
+Alternatively, pypleasant can be executed as a Python module without modifying the `PATH` variable:
 
 ```bash
 python -m pypleasant --help
 ```
 
+
 ## Configuration
 
-If you do not provide `pleasant-cli` with the login information to your Pleasant API you will be prompted for it. You
-can also configure it completely or partially via command line parameter or environment variables:
+`pleasant-cli` prompts the user for missing login information required for the Pleasant API.
+This information can be configured (partially or completely) using command-line parameters
+or environment variables:
 
-+ `--api-url` or `PLEASANT_API_URL`
-+ `--api-user` or `PLEASANT_API_USER`
-+ `--api-password` (**NOT RECOMMENDED**) or `PLEASANT_API_PASSWORD`
+* `--api-url` or `PLEASANT_API_URL`
+* `--api-user` or `PLEASANT_API_USER`
+* `--api-password` (**NOT RECOMMENDED**) or `PLEASANT_API_PASSWORD`
 
-Eventually you have to disable the HTTPS certificate check via `--disable-cert-check`
-or `PLEASANT_DISABLE_CERT_CHECK=true` in case your server uses a self signed certificate.
+In case self-signed certificates are used, consider disabling the HTTPS certificate check via
+`--disable-cert-check` or by setting `PLEASANT_DISABLE_CERT_CHECK=true`.
+
 
 ## Usage
 
-Printing attributes of an entry:
+Print entry attributes:
 
 ```bash
 pleasant-cli /path/to/entry --username
@@ -63,21 +69,21 @@ pleasant-cli /path/to/entry --password
 pleasant-cli /path/to/entry --url
 ```
 
-Accessing the value of a custom field:
+Access a custom field's value:
 
 ```bash
 pleasant-cli /path/to/entry --custom-field test
 ```
 
-Downloading attachments (default download directory is the current directory):
+Download attachments (defaults to the current directory):
 
 ```bash
-pleasant-cli /path/to/entry --attachments # downloads all attachments
+pleasant-cli /path/to/entry --attachments  # downloads all attachments
 pleasant-cli /path/to/entry --attachments secret_file.txt
 pleasant-cli /path/to/entry --attachments file_1.txt file_2.txt --download-dir /path/to/download/dir
 ```
 
-For a complete overview of all parameters call `pleasant-cli` with the help parameter:
+For a complete overview of all parameters, run `pleasant-cli` with the `--help` switch:
 
 ```bash
 > pleasant-cli --help
@@ -89,7 +95,7 @@ For a complete overview of all parameters call `pleasant-cli` with the help para
 
 positional arguments:
   path                  the path on the pleasant server to the credential
-                        entry e.g. /Development/git (env var:
+                        entry, e.g. /Development/git (env var:
                         PLEASANT_PATH_TO_ENTRY)
 
 optional arguments:
@@ -100,17 +106,17 @@ optional arguments:
   --custom-field [CUSTOM_FIELD]
                         print the given custom field
   --attachments [ATTACHMENTS [ATTACHMENTS ...]]
-                        download the given attachment(s). if no attachment is
-                        given all attachments are downloaded
+                        download the given attachment(s); if no attachment is
+                        given, all attachments are downloaded
   --download-dir DOWNLOAD_DIR
                         attachments are downloaded to this directory (DEFAULT:
                         '.', env var: PLEASANT_DOWNLOAD_DIR)
-  --api-url API_URL     url of the pleasant server api (env var:
+  --api-url API_URL     URL of the pleasant server api (env var:
                         PLEASANT_API_URL)
-  --api-user API_USER   user for the pleasant server api (env var:
+  --api-user API_USER   user for the pleasant server API (env var:
                         PLEASANT_API_USER)
   --api-password API_PASSWORD
-                        password for the pleasant server api (env var:
+                        password for the pleasant server API (env var:
                         PLEASANT_API_PASSWORD)
   --disable-cert-check  disable HTTPS cert check (env var:
                         PLEASANT_DISABLE_CERT_CHECK)
