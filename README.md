@@ -17,7 +17,7 @@ Server [API v5](https://pleasantsolutions.com/info/pleasant-password-server/m-pr
 
 ## Installation
 
-The package can easily be installed via pip:
+The package is available on [PyPi](https://pypi.org/project/pypleasant/) and can easily be installed via pip:
 
 ```bash
 pip install pypleasant
