@@ -22,15 +22,15 @@ def parse_cmd() -> Tuple[str, str, str, List[str], pathlib.Path, str, str, str, 
     attribute_group.add_argument("--custom-field", type=str, nargs='?',
                                  help="print the given custom field")
     attribute_group.add_argument("--attachments", type=str, nargs='*',
-                                 help="download the given attachment(s). if no attachment is given all attachments are downloaded")
+                                 help="download the given attachment(s); if no attachment is given, all attachments are downloaded")
 
     parser.add_argument("--download-dir", type=str,
                         help="attachments are downloaded to this directory (DEFAULT: '.', env var: PLEASANT_DOWNLOAD_DIR)")
 
-    parser.add_argument("--api-url", type=str, help="url of the pleasant server api (env var: PLEASANT_API_URL)")
-    parser.add_argument("--api-user", type=str, help="user for the pleasant server api (env var: PLEASANT_API_USER)")
+    parser.add_argument("--api-url", type=str, help="URL of the pleasant server API (env var: PLEASANT_API_URL)")
+    parser.add_argument("--api-user", type=str, help="user for the pleasant server API (env var: PLEASANT_API_USER)")
     parser.add_argument("--api-password", type=str,
-                        help="password for the pleasant server api (env var: PLEASANT_API_PASSWORD)")
+                        help="password for the pleasant server API (env var: PLEASANT_API_PASSWORD)")
     parser.add_argument("--disable-cert-check", action="store_true",
                         help="disable HTTPS cert check (env var: PLEASANT_DISABLE_CERT_CHECK)",
                         dest="disable_cert_check")
@@ -38,7 +38,7 @@ def parse_cmd() -> Tuple[str, str, str, List[str], pathlib.Path, str, str, str, 
     parser.add_argument("--debug", action="store_true", help="activate debug output (env var: PLEASANT_DEBUG)")
 
     parser.add_argument("path", type=str,
-                        help="the path on the pleasant server to the credential entry e.g. /Development/git (env var: PLEASANT_PATH_TO_ENTRY)")
+                        help="the path on the pleasant server to the credential entry, e.g. /Development/git (env var: PLEASANT_PATH_TO_ENTRY)")
     args = parser.parse_args()
 
     if args.username:
