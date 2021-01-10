@@ -95,7 +95,7 @@ For a complete overview of all parameters, run `pleasant-cli` with the `--help` 
 
 positional arguments:
   path                  the path on the pleasant server to the credential
-                        entry e.g. /Development/git (env var:
+                        entry, e.g. /Development/git (env var:
                         PLEASANT_PATH_TO_ENTRY)
 
 optional arguments:
@@ -106,17 +106,17 @@ optional arguments:
   --custom-field [CUSTOM_FIELD]
                         print the given custom field
   --attachments [ATTACHMENTS [ATTACHMENTS ...]]
-                        download the given attachment(s). if no attachment is
-                        given all attachments are downloaded
+                        download the given attachment(s); if no attachment is
+                        given, all attachments are downloaded
   --download-dir DOWNLOAD_DIR
                         attachments are downloaded to this directory (DEFAULT:
                         '.', env var: PLEASANT_DOWNLOAD_DIR)
-  --api-url API_URL     url of the pleasant server api (env var:
+  --api-url API_URL     URL of the pleasant server api (env var:
                         PLEASANT_API_URL)
-  --api-user API_USER   user for the pleasant server api (env var:
+  --api-user API_USER   user for the pleasant server API (env var:
                         PLEASANT_API_USER)
   --api-password API_PASSWORD
-                        password for the pleasant server api (env var:
+                        password for the pleasant server API (env var:
                         PLEASANT_API_PASSWORD)
   --disable-cert-check  disable HTTPS cert check (env var:
                         PLEASANT_DISABLE_CERT_CHECK)
