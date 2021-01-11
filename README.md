@@ -2,7 +2,7 @@
 
 *pypleasant* is a Python script and library which interfaces with
 the [API](https://pleasantsolutions.com/info/pleasant-password-server/m-programmatic-access/restful-api) of
-[Pleasant Password Server](https://www.passwordserver.de/).
+[Pleasant Password Server](https://pleasantsolutions.com/passwordserver).
 
 ```bash
 pleasant-cli /path/to/entry --password  # print an entry's password
