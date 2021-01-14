@@ -29,7 +29,7 @@ In order to use the command-line client `pleasant-cli`, ensure that your `PATH` 
 Python's `bin` directory (adapt if necessary):
 
 ```bash
-export PATH+=$PATH:$HOME/.local/bin
+export PATH+=":$HOME/.local/bin"
 ```
 
 Use the `--help` switch to check whether everything is setup correctly:
