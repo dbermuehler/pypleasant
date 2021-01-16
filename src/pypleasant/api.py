@@ -1,7 +1,6 @@
 import base64
-from datetime import datetime, timedelta
-
 import requests
+from datetime import datetime, timedelta
 
 
 class BadCredentials(Exception):
@@ -56,7 +55,9 @@ class PleasantAPI:
         headers = {
             'Authorization': f'Bearer {self.token}',
             'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache'
+            'Cache-Control': 'no-cache',
+            # https://pleasantsolutions.com/info/pleasant-password-server/x-common-issues#v5APIError500
+            "X-Pleasant-Client-Identifier": "7f1b1ccc-747a-4459-bf93-f2a10c24e7a8"
         }
 
         response = requests.get(url, headers=headers, verify=self.verify_https)
