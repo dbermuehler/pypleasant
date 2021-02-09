@@ -1,12 +1,13 @@
+from getpass import getpass
+
 import argparse
 import logging
 import os
 import pathlib
-import sys
-from getpass import getpass
-from typing import Tuple, List
-
 import requests
+import sys
+from typing import Tuple, List
+from uuid import UUID
 
 from pypleasant.api import PleasantAPI, BadCredentials
 from pypleasant.artifacts import Database, Entry
@@ -37,8 +38,8 @@ def parse_cmd() -> Tuple[str, str, str, List[str], pathlib.Path, str, str, str, 
     parser.add_argument("--verbose", action="store_true", help="activate verbose output")
     parser.add_argument("--debug", action="store_true", help="activate debug output (env var: PYPLEASANT_DEBUG)")
 
-    parser.add_argument("path", type=str,
-                        help="the path on the pleasant server to the credential entry, e.g. /Development/git (env var: PYPLEASANT_PATH_TO_ENTRY)")
+    parser.add_argument("path", "entry_id", type=str,
+                        help="the path (e.g. /Development/git) or entry-id (e.g. 36a9f39f-78a1-4ec5-ae1a-421d91f59d2a) on the pleasant server to the credential entry (env var: PYPLEASANT_PATH_TO_ENTRY)")
     args = parser.parse_args()
 
     if args.username:
@@ -93,8 +94,7 @@ class PleasantAPIConnectionError(Exception):
         super().__init__(f"Could not connect to {url}")
 
 
-def lookup(url: str, user: str, password: str, verify_https: bool, path: str) -> Entry:
-    api = PleasantAPI(url, user, password, verify_https)
+def lookup_path(api: PleasantAPI, path: str) -> Entry:
     database = Database(api)
     entry = PathParser(database).lookup(path)
 
@@ -102,6 +102,18 @@ def lookup(url: str, user: str, password: str, verify_https: bool, path: str) ->
         raise NotAPleasantEntry(path)
     else:
         return entry
+
+
+def lookup_entry_id(api: PleasantAPI, entry_id: str) -> Entry:
+    return Entry(api.get_entry(entry_id), api)
+
+
+def is_entry_id(path: str) -> bool:
+    try:
+        uuid_obj = UUID(path, version=4)
+    except ValueError:
+        return False
+    return str(uuid_obj) == path
 
 
 def main() -> None:
@@ -112,7 +124,9 @@ def main() -> None:
     try:
         path, entry_attribute, custom_field_key, attachment_file_names, download_dir, api_url, api_user, api_password, verify_https = parse_cmd()
 
-        entry = lookup(api_url, api_user, api_password, verify_https, path)
+        api = PleasantAPI(api_url, api_user, api_password, verify_https)
+        entry = lookup_entry_id(api, path) if is_entry_id(path) else lookup_path(api, path)
+
         if entry_attribute == "username":
             print(entry.username)
         elif entry_attribute == "password":

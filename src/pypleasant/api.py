@@ -64,16 +64,24 @@ class PleasantAPI:
         response.raise_for_status()
         return response
 
+    def get_db(self) -> dict:
+        url = f"{self.base_url}/api/v5/rest/folders"
+        db_hierarchy_as_json = self._request(url).json()
+        return db_hierarchy_as_json
+
+    def get_folder(self, folder_id: str) -> dict:
+        url = f"{self.base_url}/api/v5/rest/folders/{folder_id}"
+        return self._request(url).json()
+
+    def get_entry(self, entry_id: str) -> dict:
+        url = f"{self.base_url}/api/v5/rest/entries/{entry_id}"
+        return self._request(url).json()
+
     def get_credential(self, entry_id: str) -> str:
-        url = f'{self.base_url}/api/v5/rest/entries/{entry_id}/password'
+        url = f"{self.base_url}/api/v5/rest/entries/{entry_id}/password"
         return self._request(url).text[1:-1]
 
     def get_attachment(self, entry_id: str, attachment_id: str) -> bytes:
         url = f"{self.base_url}/api/v5/rest/entries/{entry_id}/attachments/{attachment_id}"
         decoded_file = self._request(url).json()["FileData"]
         return base64.b64decode(decoded_file)
-
-    def get_db(self) -> dict:
-        url = f"{self.base_url}/api/v5/rest/folders"
-        db_hierarchy_as_json = self._request(url).json()
-        return db_hierarchy_as_json
