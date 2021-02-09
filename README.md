@@ -8,6 +8,7 @@ the [API](https://pleasantsolutions.com/info/pleasant-password-server/m-programm
 pleasant-cli /path/to/entry --password  # print an entry's password
 pleasant-cli /path/to/entry --attachments secret_file.txt  # download an attachment
 pleasant-cli /path/to/entry --custom-field test  # print value of a custom field
+pleasant-cli 36a9f39f-78a1-4ec5-ae1a-421d91f59d2a --password # alternatively you can also use the uuid of the entry
 ```
 
 
@@ -87,15 +88,17 @@ For a complete overview of all parameters, run `pleasant-cli` with the `--help` 
 
 ```bash
 > pleasant-cli --help
+usage: pleasant-client [-h]
                        (--username | --password | --url | --custom-field [CUSTOM_FIELD] | --attachments [ATTACHMENTS [ATTACHMENTS ...]])
                        [--download-dir DOWNLOAD_DIR] [--api-url API_URL]
                        [--api-user API_USER] [--api-password API_PASSWORD]
                        [--disable-cert-check] [--verbose] [--debug]
-                       path
+                       PATH | ENTRY-ID
 
 positional arguments:
-  path                  the path on the pleasant server to the credential
-                        entry, e.g. /Development/git (env var:
+  PATH | ENTRY-ID       the path (e.g. /Development/git) or entry-id (e.g.
+                        36a9f39f-78a1-4ec5-ae1a-421d91f59d2a) on the pleasant
+                        server to the credential entry (env var:
                         PYPLEASANT_PATH_TO_ENTRY)
 
 optional arguments:
@@ -111,7 +114,7 @@ optional arguments:
   --download-dir DOWNLOAD_DIR
                         attachments are downloaded to this directory (DEFAULT:
                         '.', env var: PYPLEASANT_DOWNLOAD_DIR)
-  --api-url API_URL     URL of the pleasant server api (env var:
+  --api-url API_URL     URL of the pleasant server API (env var:
                         PYPLEASANT_API_URL)
   --api-user API_USER   user for the pleasant server API (env var:
                         PYPLEASANT_API_USER)

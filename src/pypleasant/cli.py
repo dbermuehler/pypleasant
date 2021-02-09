@@ -38,7 +38,7 @@ def parse_cmd() -> Tuple[str, str, str, List[str], pathlib.Path, str, str, str, 
     parser.add_argument("--verbose", action="store_true", help="activate verbose output")
     parser.add_argument("--debug", action="store_true", help="activate debug output (env var: PYPLEASANT_DEBUG)")
 
-    parser.add_argument("path", "entry_id", type=str,
+    parser.add_argument("path", type=str, metavar="PATH | ENTRY-ID",
                         help="the path (e.g. /Development/git) or entry-id (e.g. 36a9f39f-78a1-4ec5-ae1a-421d91f59d2a) on the pleasant server to the credential entry (env var: PYPLEASANT_PATH_TO_ENTRY)")
     args = parser.parse_args()
 
