@@ -2,7 +2,7 @@ import pathlib
 
 from setuptools import setup, find_packages
 
-VERSION = "1.0.3"
+VERSION = "1.1.0"
 PROJECT_DIR = pathlib.Path(__file__).parent
 SRC_DIR = PROJECT_DIR / "src"
 
