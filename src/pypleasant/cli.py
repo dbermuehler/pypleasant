@@ -9,9 +9,9 @@ import sys
 from typing import Tuple, List
 from uuid import UUID
 
-from pypleasant.api import PleasantAPI, BadCredentials
-from pypleasant.artifacts import Database, Entry
-from pypleasant.pathparser import PathParser, PleasantElementNotFound
+from pypleasant.api import BadCredentials
+from pypleasant.pathparser import PleasantElementNotFound
+from pypleasant.pleasant import Pleasant, NotAPleasantEntry
 
 
 def parse_cmd() -> Tuple[str, str, str, List[str], pathlib.Path, str, str, str, bool]:
@@ -84,28 +84,9 @@ def print_prettified_exception(exception: BaseException) -> None:
         logging.error(exception.args[0] if exception.args else standard_error_message)
 
 
-class NotAPleasantEntry(Exception):
-    def __init__(self, path: str):
-        super().__init__(f"{path} is not an entry")
-
-
 class PleasantAPIConnectionError(Exception):
     def __init__(self, url: str):
         super().__init__(f"Could not connect to {url}")
-
-
-def lookup_path(api: PleasantAPI, path: str) -> Entry:
-    database = Database(api)
-    entry = PathParser(database).lookup(path)
-
-    if not isinstance(entry, Entry):
-        raise NotAPleasantEntry(path)
-    else:
-        return entry
-
-
-def lookup_entry_id(api: PleasantAPI, entry_id: str) -> Entry:
-    return Entry(api.get_entry(entry_id), api)
 
 
 def is_entry_id(path: str) -> bool:
@@ -124,8 +105,8 @@ def main() -> None:
     try:
         path, entry_attribute, custom_field_key, attachment_file_names, download_dir, api_url, api_user, api_password, verify_https = parse_cmd()
 
-        api = PleasantAPI(api_url, api_user, api_password, verify_https)
-        entry = lookup_entry_id(api, path) if is_entry_id(path) else lookup_path(api, path)
+        pleasant = Pleasant(api_url, api_user, api_password, verify_https)
+        entry = pleasant.lookup_entry_id(path) if is_entry_id(path) else pleasant.lookup_path(path)
 
         if entry_attribute == "username":
             print(entry.username)
